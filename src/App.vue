@@ -1,17 +1,13 @@
 <script setup>
-import { useTodosStore } from "./stores/todos";
-
-const { todos } = useTodosStore();
+import Todo from "./components/TodosItems.vue";
 </script>
 
 <template>
   <main>
-    <input type="text" />
-    <button>Add</button>
-
-    <div v-for="todo in todos" :key="todo.id">
-      <h1>{{ todo.text }}</h1>
-      <button>Toggle</button>
+    <div>
+      <input type="text" />
+      <button>Add</button>
+      <Todo />
     </div>
   </main>
 </template>
