@@ -7,8 +7,8 @@ const newTodo = ref("");
 
 const todosStore = useTodosStore();
 
-const { todos } = storeToRefs(todosStore);
-const { addTodo, toggleTodo } = useTodosStore();
+const { filteredTodos } = storeToRefs(todosStore);
+const { addTodo, toggleTodo, updateFilter } = useTodosStore();
 
 const addNewTodo = (text) => {
   addTodo(text);
@@ -19,9 +19,14 @@ const addNewTodo = (text) => {
 <template>
   <main>
     <div>
+      <button @click="() => updateFilter('all')">All</button>
+      <button @click="() => updateFilter('finished')">Finished</button>
+      <button @click="() => updateFilter('unfinished')">Unfinished</button>
+    </div>
+    <div>
       <input v-model="newTodo" />
       <button @click="() => addNewTodo(newTodo)">Add</button>
-      <div v-for="todo in todos" :key="todo.id">
+      <div v-for="todo in filteredTodos" :key="todo.id">
         <h1 :style="todo.isFinished && { textDecoration: 'line-through' }">
           {{ todo.text }}
         </h1>

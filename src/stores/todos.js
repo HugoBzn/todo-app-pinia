@@ -9,6 +9,7 @@ export const useTodosStore = defineStore("todos", {
         isFinished: false,
       },
     ],
+    filter: "all",
   }),
   actions: {
     addTodo(text) {
@@ -22,6 +23,19 @@ export const useTodosStore = defineStore("todos", {
     toggleTodo(id) {
       const index = this.todos.findIndex((todo) => todo.id === id);
       this.todos[index].isFinished = !this.todos[index].isFinished;
+    },
+    updateFilter(value) {
+      this.filter = value;
+    },
+  },
+  getters: {
+    filteredTodos() {
+      if (this.filter === "finished") {
+        return this.todos.filter((todo) => todo.isFinished);
+      } else if (this.filter === "unfinished") {
+        return this.todos.filter((todo) => !todo.isFinished);
+      }
+      return this.todos;
     },
   },
 });
