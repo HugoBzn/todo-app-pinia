@@ -8,7 +8,7 @@ const newTodo = ref("");
 const todosStore = useTodosStore();
 
 const { todos } = storeToRefs(todosStore);
-const { addTodo } = useTodosStore();
+const { addTodo, toggleTodo } = useTodosStore();
 
 const addNewTodo = (text) => {
   addTodo(text);
@@ -22,8 +22,10 @@ const addNewTodo = (text) => {
       <input v-model="newTodo" />
       <button @click="() => addNewTodo(newTodo)">Add</button>
       <div v-for="todo in todos" :key="todo.id">
-        <h1>{{ todo.text }}</h1>
-        <button>Toggle</button>
+        <h1 :style="todo.isFinished && { textDecoration: 'line-through' }">
+          {{ todo.text }}
+        </h1>
+        <button @click="() => toggleTodo(todo.id)">Toggle</button>
       </div>
     </div>
   </main>
