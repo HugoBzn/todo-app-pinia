@@ -10,4 +10,14 @@ export const useTodosStore = defineStore("todos", {
       },
     ],
   }),
+  actions: {
+    addTodo(text) {
+      if (!text) return;
+      this.todos.push({
+        id: Math.floor(Math.random() * 10000000000),
+        text,
+        isFinished: false,
+      });
+    },
+  },
 });
